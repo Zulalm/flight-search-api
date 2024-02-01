@@ -5,7 +5,6 @@ import com.example.flightsearchapi.config.JwtAuthFilter;
 import com.example.flightsearchapi.dtos.AuthenticateRequestDto;
 import com.example.flightsearchapi.dtos.RegisterUserRequestDto;
 import com.example.flightsearchapi.models.User;
-import com.example.flightsearchapi.services.UserDetailsServiceImplementation;
 import com.example.flightsearchapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,11 +25,9 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserDetailsServiceImplementation userDetailsServiceImplementation;
+    private UserService userService;
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
-    @Autowired
-    private UserService userService;
     @PostMapping("/authenticate")
     public ResponseEntity<String> authenticate(@RequestBody AuthenticateRequestDto requestDto){
         try{
@@ -40,7 +37,7 @@ public class AuthenticationController {
             if(requestDto.getPassword() == null){
                 return new ResponseEntity<>("A password should be provided.", HttpStatus.BAD_REQUEST);
             }
-            UserDetails user = userDetailsServiceImplementation.loadUserByUsername(requestDto.getUsername());
+            UserDetails user = userService.loadUserByUsername(requestDto.getUsername());
             if(user != null){
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDto.getUsername(), requestDto.getPassword()));
                 return new ResponseEntity<>(jwtAuthFilter.createToken(user), HttpStatus.OK);

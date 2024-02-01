@@ -1,6 +1,6 @@
 package com.example.flightsearchapi.config;
 
-import com.example.flightsearchapi.services.UserDetailsServiceImplementation;
+import com.example.flightsearchapi.services.UserService;
 import io.jsonwebtoken.*;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -28,6 +28,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final String secret = "secretKey";
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
     private final SecretKeySpec signingKey = new SecretKeySpec(secret.getBytes(), signatureAlgorithm.getJcaName());
+
+    @Autowired
+    UserService userDetailsServiceImplementation;
     public String getUsername(String token){
         try {
             Claims allClaims = Jwts.parser().setSigningKey(signingKey).parseClaimsJws(token).getBody();
@@ -52,8 +55,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         return username.equals(userDetails.getUsername()) && !isTokenExpired;
     }
 
-    @Autowired
-    UserDetailsServiceImplementation userDetailsServiceImplementation;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
