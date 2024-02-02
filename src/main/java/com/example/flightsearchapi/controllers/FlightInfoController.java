@@ -34,10 +34,10 @@ public class FlightInfoController {
         if(origin == null){
             return  new ResponseEntity<>("Origin airport is not found.", HttpStatus.NOT_FOUND);
         }
-        if(requestDto.getArrivalDate() == null || requestDto.getDepartureDate() == null){
+        if(requestDto.getArrivalDate() == null || requestDto.getDepartureDate() == null || requestDto.getDepartureTime() == null || requestDto.getArrivalTime() == null){
             return  new ResponseEntity<>("Arrival and departure dates must be provided.", HttpStatus.BAD_REQUEST);
         }
-        FlightInfo flightInfo = flightInfoService.addNewFlight(destination,origin,requestDto.getArrivalDate(), requestDto.getDepartureDate());
+        FlightInfo flightInfo = flightInfoService.addNewFlight(destination,origin,requestDto.getArrivalDate(), requestDto.getArrivalTime(), requestDto.getDepartureDate(),requestDto.getDepartureTime());
         return new ResponseEntity<>(flightInfo, HttpStatus.CREATED);
     }
 
@@ -70,24 +70,38 @@ public class FlightInfoController {
     }
     @PutMapping("/update_flight_arrival_date")
     public ResponseEntity<Object> updateFlightArrivalDate(@RequestBody UpdateFlightArrivalDateRequestDto requestDto){
-        FlightInfo flightInfo = flightInfoService.updateFlightArrivalDate(requestDto.getFlightId(), requestDto.getArrivalDate());
+        if(requestDto.getArrivalDate() == null && requestDto.getArrivalTime() == null){
+            return  new ResponseEntity<>("Arrival date or time must be provided.", HttpStatus.BAD_REQUEST);
+        }
+        FlightInfo flightInfo = null;
+        if(requestDto.getArrivalDate() != null){
+            flightInfo = flightInfoService.updateFlightArrivalDate(requestDto.getFlightId(), requestDto.getArrivalDate());
+        }
+        if(requestDto.getArrivalTime() != null){
+            flightInfo = flightInfoService.updateFlightArrivalTime(requestDto.getFlightId(), requestDto.getArrivalTime());
+        }
+
         if(flightInfo == null){
             return  new ResponseEntity<>("Flight info is not found.", HttpStatus.NOT_FOUND);
         }
-        if(requestDto.getArrivalDate() == null){
-            return  new ResponseEntity<>("Arrival date must be provided.", HttpStatus.BAD_REQUEST);
-        }
+
         return new ResponseEntity<>(flightInfo, HttpStatus.OK);
 
     }
     @PutMapping("/update_flight_departure_date")
     public ResponseEntity<Object> updateFlightDepartureDate(@RequestBody UpdateFlightDepartureDateRequestDto requestDto){
-        FlightInfo flightInfo = flightInfoService.updateFlightDepartureDate(requestDto.getFlightId(), requestDto.getDepartureDate());
+        if( requestDto.getDepartureDate() == null || requestDto.getDepartureTime() == null){
+            return  new ResponseEntity<>("Departure date or time must be provided.", HttpStatus.BAD_REQUEST);
+        }
+        FlightInfo flightInfo = null;
+        if(requestDto.getDepartureDate() != null){
+            flightInfo = flightInfoService.updateFlightDepartureDate(requestDto.getFlightId(), requestDto.getDepartureDate());
+        }
+        if(requestDto.getDepartureTime() != null){
+            flightInfo = flightInfoService.updateFlightDepartureTime(requestDto.getFlightId(), requestDto.getDepartureTime());
+        }
         if(flightInfo == null){
             return  new ResponseEntity<>("Flight info is not found.", HttpStatus.NOT_FOUND);
-        }
-        if( requestDto.getDepartureDate() == null){
-            return  new ResponseEntity<>("Departure date must be provided.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(flightInfo, HttpStatus.OK);
 

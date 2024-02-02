@@ -1,21 +1,26 @@
 package com.example.flightsearchapi.dtos.flightInfoRequestDtos;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class AddFlightInfoRequestDto {
     private long destinationAirportId;
     private long originAirportId;
-    private LocalDateTime departureDate;
-    private LocalDateTime arrivalDate;
+    private LocalDate departureDate;
+    private LocalTime departureTime;
+    private LocalDate arrivalDate;
+    private LocalTime arrivalTime;
 
     public AddFlightInfoRequestDto() {
     }
 
-    public AddFlightInfoRequestDto(long destinationAirportId, long originAirportId, LocalDateTime departureDate, LocalDateTime arrivalDate) {
+    public AddFlightInfoRequestDto(long destinationAirportId, long originAirportId, LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate, LocalTime arrivalTime) {
         this.destinationAirportId = destinationAirportId;
         this.originAirportId = originAirportId;
         this.departureDate = departureDate;
+        this.departureTime = departureTime;
         this.arrivalDate = arrivalDate;
+        this.arrivalTime = arrivalTime;
     }
 
     public long getDestinationAirportId() {
@@ -34,19 +39,35 @@ public class AddFlightInfoRequestDto {
         this.originAirportId = originAirportId;
     }
 
-    public LocalDateTime getDepartureDate() {
+    public LocalDate getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(LocalDateTime departureDate) {
+    public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
 
-    public LocalDateTime getArrivalDate() {
+    public LocalTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(LocalTime departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public LocalDate getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(LocalDateTime arrivalDate) {
+    public void setArrivalDate(LocalDate arrivalDate) {
         this.arrivalDate = arrivalDate;
+    }
+
+    public LocalTime getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(LocalTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 }

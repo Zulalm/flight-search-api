@@ -1,14 +1,17 @@
 package com.example.flightsearchapi.dtos.flightInfoRequestDtos;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class UpdateFlightDepartureDateRequestDto {
     private long flightId;
-    private LocalDateTime departureDate;
+    private LocalDate departureDate;
+    private LocalTime departureTime;
 
-    public UpdateFlightDepartureDateRequestDto(long flightId, LocalDateTime departureDate) {
+    public UpdateFlightDepartureDateRequestDto(long flightId, LocalDate departureDate, LocalTime departureTime) {
         this.flightId = flightId;
         this.departureDate = departureDate;
+        this.departureTime = departureTime;
     }
 
     public UpdateFlightDepartureDateRequestDto() {
@@ -22,11 +25,19 @@ public class UpdateFlightDepartureDateRequestDto {
         this.flightId = flightId;
     }
 
-    public LocalDateTime getDepartureDate() {
+    public LocalDate getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(LocalDateTime departureDate) {
+    public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
+    }
+
+    public LocalTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(LocalTime departureTime) {
+        this.departureTime = departureTime;
     }
 }

@@ -6,7 +6,8 @@ import com.example.flightsearchapi.repositories.FlightInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +31,12 @@ public class FlightInfoService {
         }
     }
 
-    public FlightInfo addNewFlight(Airport destination, Airport origin, LocalDateTime arrivalDate, LocalDateTime departureDate){
+    public FlightInfo addNewFlight(Airport destination, Airport origin, LocalDate arrivalDate, LocalTime arrivalTime,LocalDate departureDate, LocalTime departureTime){
         FlightInfo flightInfo = new FlightInfo();
         flightInfo.setArrivalDate(arrivalDate);
+        flightInfo.setArrivalTime(arrivalTime);
         flightInfo.setDestination(destination);
+        flightInfo.setDepartureTime(departureTime);
         flightInfo.setDepartureDate(departureDate);
         flightInfo.setOrigin(origin);
         flightInfoRepository.save(flightInfo);
@@ -64,7 +67,7 @@ public class FlightInfoService {
             return null;
         }
     }
-    public FlightInfo updateFlightArrivalDate(Long id, LocalDateTime arrivalDate){
+    public FlightInfo updateFlightArrivalDate(Long id, LocalDate arrivalDate){
         Optional<FlightInfo> flightInfoOptional = flightInfoRepository.findById(id);
         if(flightInfoOptional.isPresent()){
             FlightInfo flightInfo = flightInfoOptional.get();
@@ -76,11 +79,35 @@ public class FlightInfoService {
             return null;
         }
     }
-    public FlightInfo updateFlightDepartureDate(Long id, LocalDateTime departureDate){
+    public FlightInfo updateFlightArrivalTime(Long id, LocalTime arrivalTime){
+        Optional<FlightInfo> flightInfoOptional = flightInfoRepository.findById(id);
+        if(flightInfoOptional.isPresent()){
+            FlightInfo flightInfo = flightInfoOptional.get();
+            flightInfo.setArrivalTime(arrivalTime);
+            flightInfoRepository.save(flightInfo);
+            return flightInfo;
+        }
+        else{
+            return null;
+        }
+    }
+    public FlightInfo updateFlightDepartureDate(Long id, LocalDate departureDate){
         Optional<FlightInfo> flightInfoOptional = flightInfoRepository.findById(id);
         if(flightInfoOptional.isPresent()){
             FlightInfo flightInfo = flightInfoOptional.get();
             flightInfo.setDepartureDate(departureDate);
+            flightInfoRepository.save(flightInfo);
+            return flightInfo;
+        }
+        else{
+            return null;
+        }
+    }
+    public FlightInfo updateFlightDepartureTime(Long id, LocalTime departureTime){
+        Optional<FlightInfo> flightInfoOptional = flightInfoRepository.findById(id);
+        if(flightInfoOptional.isPresent()){
+            FlightInfo flightInfo = flightInfoOptional.get();
+            flightInfo.setDepartureTime(departureTime);
             flightInfoRepository.save(flightInfo);
             return flightInfo;
         }
