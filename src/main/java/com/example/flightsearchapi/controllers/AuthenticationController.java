@@ -2,8 +2,8 @@ package com.example.flightsearchapi.controllers;
 
 
 import com.example.flightsearchapi.config.JwtAuthFilter;
-import com.example.flightsearchapi.dtos.AuthenticateRequestDto;
-import com.example.flightsearchapi.dtos.RegisterUserRequestDto;
+import com.example.flightsearchapi.dtos.authenticationRequestDtos.AuthenticateRequestDto;
+import com.example.flightsearchapi.dtos.authenticationRequestDtos.RegisterUserRequestDto;
 import com.example.flightsearchapi.models.User;
 import com.example.flightsearchapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

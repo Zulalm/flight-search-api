@@ -1,4 +1,4 @@
-package com.example.flightsearchapi.dtos;
+package com.example.flightsearchapi.dtos.authenticationRequestDtos;
 
 public class AuthenticateRequestDto {
     private String username;
