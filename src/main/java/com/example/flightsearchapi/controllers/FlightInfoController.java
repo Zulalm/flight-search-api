@@ -142,7 +142,7 @@ public class FlightInfoController {
     @ApiResponse(responseCode = "500", description = "Internal Server Error",
             content = @Content(mediaType = "text/plain"))
     public ResponseEntity<Object> updateFlightDepartureDate(@RequestBody UpdateFlightDepartureDateRequestDto requestDto){
-        if( requestDto.getDepartureDate() == null || requestDto.getDepartureTime() == null){
+        if( requestDto.getDepartureDate() == null && requestDto.getDepartureTime() == null){
             return  new ResponseEntity<>("Departure date or time must be provided.", HttpStatus.BAD_REQUEST);
         }
         FlightInfo flightInfo = null;

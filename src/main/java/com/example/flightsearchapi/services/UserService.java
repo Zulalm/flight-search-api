@@ -19,11 +19,11 @@ public class UserService  implements UserDetailsService {
     private UserRepository userRepository;
     public boolean checkUsernameIsAvailable(String username){
         User user = userRepository.findByUsername(username);
-        return user != null;
+        return user == null;
     }
     public boolean checkEmailIsAvailable(String email){
         User user = userRepository.findByEmail(email);
-        return user != null;
+        return user == null;
     }
 
 

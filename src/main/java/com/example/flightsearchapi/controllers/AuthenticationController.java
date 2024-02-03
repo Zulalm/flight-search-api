@@ -76,10 +76,10 @@ public class AuthenticationController {
     @ApiResponse(responseCode = "500", description = "Internal Server Error",
             content = @Content(mediaType = "text/plain"))
     public ResponseEntity<Object> registerUser(@RequestBody RegisterUserRequestDto requestDto){
-        if(userService.checkUsernameIsAvailable(requestDto.getUsername())){
+        if(!userService.checkUsernameIsAvailable(requestDto.getUsername())){
             return new ResponseEntity<>("The username is already in use. Please choose a different username.", HttpStatus.CONFLICT);
         }
-        if(userService.checkEmailIsAvailable(requestDto.getEmail())){
+        if(!userService.checkEmailIsAvailable(requestDto.getEmail())){
             return new ResponseEntity<>("The email is already in use. Please choose a different email.", HttpStatus.CONFLICT);
         }
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
