@@ -25,6 +25,9 @@ public class SecurityConfiguration   {
     private static final String[] AUTH_WHITELIST = {
             "/error",
             "/api/auth/**",
+            "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/v3/api-docs/**"
     };
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
