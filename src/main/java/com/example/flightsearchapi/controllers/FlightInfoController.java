@@ -167,8 +167,8 @@ public class FlightInfoController {
             content = @Content(mediaType = "text/plain"))
     @ApiResponse(responseCode = "500", description = "Internal Server Error",
             content = @Content(mediaType = "text/plain"))
-    public ResponseEntity<String> deleteFlightInfo(@RequestBody DeleteFlightInfoRequestDto requestDto){
-        FlightInfo flightInfo = flightInfoService.deleteFlightInfo(requestDto.getId());
+    public ResponseEntity<String> deleteFlightInfo(Long flightId){
+        FlightInfo flightInfo = flightInfoService.deleteFlightInfo(flightId);
         if(flightInfo !=null){
             return new ResponseEntity<>("Flight info deleted.", HttpStatus.OK);
         }

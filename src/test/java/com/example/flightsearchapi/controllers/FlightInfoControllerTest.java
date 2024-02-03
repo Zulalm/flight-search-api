@@ -326,13 +326,12 @@ class FlightInfoControllerTest {
 
     @Test
     void testDeleteFlightInfoSuccess() {
-        DeleteFlightInfoRequestDto requestDto = new DeleteFlightInfoRequestDto();
-        requestDto.setId(1L);
+        Long flightId = 1L;
 
         FlightInfo deletedFlightInfo = new FlightInfo();
         when(flightInfoService.deleteFlightInfo(1L)).thenReturn(deletedFlightInfo);
 
-        ResponseEntity<String> responseEntity = flightInfoController.deleteFlightInfo(requestDto);
+        ResponseEntity<String> responseEntity = flightInfoController.deleteFlightInfo(flightId);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals("Flight info deleted.", responseEntity.getBody());
@@ -340,12 +339,12 @@ class FlightInfoControllerTest {
 
     @Test
     void testDeleteFlightInfoNotFound() {
-        DeleteFlightInfoRequestDto requestDto = new DeleteFlightInfoRequestDto();
-        requestDto.setId(1L);
+
+        Long flightId = 1L;
 
         when(flightInfoService.deleteFlightInfo(1L)).thenReturn(null);
 
-        ResponseEntity<String> responseEntity = flightInfoController.deleteFlightInfo(requestDto);
+        ResponseEntity<String> responseEntity = flightInfoController.deleteFlightInfo(flightId);
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
         assertEquals("Flight not found.", responseEntity.getBody());

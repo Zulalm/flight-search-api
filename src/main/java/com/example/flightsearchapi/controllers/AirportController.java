@@ -1,7 +1,6 @@
 package com.example.flightsearchapi.controllers;
 
 import com.example.flightsearchapi.dtos.airportRequestDtos.AddAirportRequestDto;
-import com.example.flightsearchapi.dtos.airportRequestDtos.DeleteAirportRequestDto;
 import com.example.flightsearchapi.dtos.airportRequestDtos.UpdateAirportRequestDto;
 import com.example.flightsearchapi.models.Airport;
 import com.example.flightsearchapi.services.AirportService;
@@ -86,8 +85,8 @@ public class AirportController {
             content = @Content(mediaType = "text/plain"))
     @ApiResponse(responseCode = "500", description = "Internal Server Error",
             content = @Content(mediaType = "text/plain"))
-    public ResponseEntity<Object> deleteAirport(@RequestBody DeleteAirportRequestDto requestDto){
-        Airport airport = airportService.deleteAirport(requestDto.getId());
+    public ResponseEntity<Object> deleteAirport(Long airportId){
+        Airport airport = airportService.deleteAirport(airportId);
         if(airport != null){
             return  new ResponseEntity<>("Airport deleted.", HttpStatus.OK);
         }

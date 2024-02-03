@@ -1,7 +1,6 @@
 package com.example.flightsearchapi.controllers;
 
 import com.example.flightsearchapi.dtos.airportRequestDtos.AddAirportRequestDto;
-import com.example.flightsearchapi.dtos.airportRequestDtos.DeleteAirportRequestDto;
 import com.example.flightsearchapi.dtos.airportRequestDtos.UpdateAirportRequestDto;
 import org.junit.jupiter.api.Test;
 
@@ -112,13 +111,12 @@ class AirportControllerTest {
 
     @Test
     void testDeleteAirport() {
-        DeleteAirportRequestDto requestDto = new DeleteAirportRequestDto();
-        requestDto.setId(1L);
+        Long airportId = 1L;
 
         Airport deletedAirport = new Airport();
-        when(airportService.deleteAirport(requestDto.getId())).thenReturn(deletedAirport);
+        when(airportService.deleteAirport(airportId)).thenReturn(deletedAirport);
 
-        ResponseEntity<Object> responseEntity = airportController.deleteAirport(requestDto);
+        ResponseEntity<Object> responseEntity = airportController.deleteAirport(airportId);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals("Airport deleted.", responseEntity.getBody());
@@ -126,12 +124,11 @@ class AirportControllerTest {
 
     @Test
     void testDeleteAirportNotFound() {
-        DeleteAirportRequestDto requestDto = new DeleteAirportRequestDto();
-        requestDto.setId(1L);
+        Long airportId = 1L;
 
-        when(airportService.deleteAirport(requestDto.getId())).thenReturn(null);
+        when(airportService.deleteAirport(airportId)).thenReturn(null);
 
-        ResponseEntity<Object> responseEntity = airportController.deleteAirport(requestDto);
+        ResponseEntity<Object> responseEntity = airportController.deleteAirport(airportId);
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
         assertEquals("Airport not found.", responseEntity.getBody());
